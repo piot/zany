@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 	}
 	printf("Zany boot!\n");
 	zany_cpu cpu;
-
+	zany_cpu_init(&cpu);
 	zany_load(&cpu, argv[1]);
 
 	zany_run(&cpu);
