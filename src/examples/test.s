@@ -25,14 +25,18 @@ sta $FE07
 
 
 ; start
-txa
-sta nametable,y
-iny
-tya
-bne done
+inc lastchar
+lda lastchar
+ldx #$00
+again:
+sta nametable,x
 inx
+bne again
 done:
 rts
+
+lastchar:
+  .byte $00
 
 hello:
 	.asciiz "Hello world"
