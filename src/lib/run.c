@@ -110,9 +110,9 @@ static inline void add(zany_cpu* cpu, uint8_t r1)
 {
 	uint16_t extended = r1 + cpu->a + get_flag(cpu, FLAG_CARRY);
 	set_flag(cpu, FLAG_CARRY, extended & 0xFF00);
-	set_flag(cpu, FLAG_NEGATIVE, extended & 0x80);
+	set_flag(cpu, FLAG_NEGATIVE, ((uint8_t) extended) & 0x80);
 	set_flag(cpu, FLAG_OVERFLOW, (cpu->a & 0x80) != (extended & 0x80));
-	set_flag(cpu, FLAG_ZERO, extended == 0);
+	set_flag(cpu, FLAG_ZERO, ((uint8_t) extended) == 0);
 	cpu->a = (uint8_t) extended;
 }
 
