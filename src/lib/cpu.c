@@ -23,21 +23,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
-#ifndef zany_cpu_h
-#define zany_cpu_h
+#include <zany/cpu.h>
 
-#include <stdint.h>
+void zany_cpu_set_entry(zany_cpu* cpu)
+{
+	cpu->pc = 0x0200;
+}
 
-#define ZANY_MEMORY_SIZE (0x10000)
-
-typedef struct zany_cpu {
-	uint16_t pc;
-	uint8_t a, x, y;
-	uint8_t sp;
-	uint8_t sr;
-	uint8_t memory[ZANY_MEMORY_SIZE];
-} zany_cpu;
-
-void zany_cpu_init(zany_cpu* cpu);
-void zany_cpu_set_entry(zany_cpu* cpu);
-#endif
+void zany_cpu_init(zany_cpu* cpu)
+{
+	cpu->sp = 0xff;
+	cpu->a = 0;
+	cpu->x = 0;
+	cpu->y = 0;
+	zany_cpu_set_entry(cpu);
+}

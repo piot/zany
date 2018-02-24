@@ -18,7 +18,7 @@ case JSR_ABS:
 
 case RTS:
 	if (cpu->sp == 0xff) {
-		TYRAN_LOG_INFO("Run is complete.\n");
+		//TYRAN_LOG_INFO("Run is complete.\n");
 
 		return;
 	}

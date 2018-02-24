@@ -137,18 +137,12 @@ static void wait()
 
 void zany_run(zany_cpu* cpu)
 {
-	cpu->pc = 0x0200;
-	cpu->sp = 0xff;
-	cpu->a = 0;
-	cpu->x = 0;
-	cpu->y = 0;
-
 	uint8_t r, arg1, arg2;
 	uint16_t r1, r2;
 
 	for (;;) {
 		uint8_t opcode = READ_OCTET(cpu);
-		TYRAN_LOG_INFO("opcode:%02X a:%02X x:%02X y:%02X pc:%04X sr:%02X", opcode, cpu->a, cpu->x, cpu->y, cpu->pc, cpu->sr);
+		// TYRAN_LOG_INFO("opcode:%02X a:%02X x:%02X y:%02X pc:%04X sr:%02X", opcode, cpu->a, cpu->x, cpu->y, cpu->pc, cpu->sr);
 		switch (opcode) {
 #include "opcodes/arithmetic.inc"
 #include "opcodes/branch.inc"
