@@ -24,6 +24,7 @@ SOFTWARE.
 
 */
 #include "opcode.h"
+#include <stdlib.h>
 #include <zany/cpu.h>
 #include <zany/run.h>
 
@@ -126,7 +127,7 @@ static inline void sub(zany_cpu* cpu, uint8_t r1)
 	cpu->a = (uint8_t) extended;
 }
 
-static void wait()
+static void sleep_a_while()
 {
 	struct timespec ts;
 	ts.tv_sec = 0;
@@ -135,7 +136,7 @@ static void wait()
 	nanosleep(&ts, &ts);
 }
 
-void zany_run(zany_cpu* cpu)
+int zany_run(zany_cpu* cpu)
 {
 	uint8_t r, arg1, arg2;
 	uint16_t r1, r2;
@@ -156,10 +157,14 @@ void zany_run(zany_cpu* cpu)
 #include "opcodes/stack.inc"
 #include "opcodes/store.inc"
 #include "opcodes/transfer.inc"
+			case NOP:
+				break;
 			default:
 				TYRAN_LOG_WARN("Unknown opcode:%02X", opcode);
+				return -1;
 				break;
 		}
-		// wait();
+		// sleep_a_while();
 	}
+	return 0;
 }
