@@ -35,13 +35,9 @@ void zany_load(zany_cpu* cpu, const char* filename)
 	FILE* ptr;
 	struct stat info;
 	stat(filename, &info);
-	printf("FILE SIZE: %llu\n", info.st_size);
 	size_t octets_to_read = info.st_size;
 	ptr = fopen(filename, "rb");
 	uint8_t* buffer = &cpu->memory[0x0200];
 	fread(buffer, octets_to_read, 1, ptr);
-	for (uint16_t i = 0x0200; i < 0x020f; ++i) {
-		printf("%04X %02X\n", i, cpu->memory[i]);
-	}
 	fclose(ptr);
 }
