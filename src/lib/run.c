@@ -157,7 +157,7 @@ int zany_run(zany_cpu* cpu)
 
 	for (;;) {
 		uint8_t opcode = READ_OCTET(cpu);
-#if ZANY_DEBUG_OPCODE
+#if defined ZANY_DEBUG_OPCODE
 		TYRAN_LOG_INFO("opcode:%02X a:%02X x:%02X y:%02X pc:%04X sr:%02X", opcode, cpu->a, cpu->x, cpu->y, (cpu->pc - 1), cpu->sr);
 #endif
 		switch (opcode) {
@@ -180,7 +180,7 @@ int zany_run(zany_cpu* cpu)
 				return -1;
 				break;
 		}
-#if ZANY_DEBUG_OPCODE
+#if defined ZANY_DEBUG_OPCODE
 		sleep_a_while();
 #endif
 	}
