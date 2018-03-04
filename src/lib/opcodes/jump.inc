@@ -10,10 +10,20 @@ case JMP_IND:
 
 case JSR_ABS:
 	READ_ABSOLUTE_MEMORY_ADDRESS(cpu, 0);
-    r2 = cpu->pc;
-    STACK_PUSH(cpu, (r2 & 0xFF00) >> 8);
-    STACK_PUSH(cpu, r2 & 0xFF);
-    cpu->pc = r1;
+	if (r1 == 0x1) {
+		printf("Special function 0x1. X = %2x\n", cpu->x);
+	} else if(r1 == 0x2) {
+		printf("Special function 0x2. X = %2x, Y = %2x\n", cpu->x, cpu->y);
+	} else if(r1 == 0x3) {
+		printf("Special function 0x3. cpu->memory[%04x] = %04x\n", cpu->x, cpu->memory[cpu->x]);
+	} else if(r1 == 0x4) {
+		printf("Special function 0x4. %04X\n", cpu->x | (cpu->y << 8));
+	} else {
+		r2 = cpu->pc;
+		STACK_PUSH(cpu, (r2 & 0xFF00) >> 8);
+		STACK_PUSH(cpu, r2 & 0xFF);
+		cpu->pc = r1;
+	}
     break;
 
 case RTS:
