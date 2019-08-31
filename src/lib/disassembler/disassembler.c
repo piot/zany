@@ -48,7 +48,7 @@ typedef struct zany_dis_info {
 	zany_argument_type arguments;
 } zany_dis_info;
 
-zany_dis_info types[] = {
+static zany_dis_info types[] = {
 	{ADC_IMM, "adc", ZANY_DA_IMM},
 	{ADC_ZP, "adc", ZANY_DA_ZP},
 	{ADC_ZP_X, "adc", ZANY_DA_ZP_X},
@@ -222,7 +222,7 @@ zany_dis_info types[] = {
 
 };
 
-int get_argument_size(zany_argument_type arg)
+static int get_argument_size(zany_argument_type arg)
 {
 	switch (arg) {
 		case ZANY_DA_IMM:
@@ -246,9 +246,9 @@ int get_argument_size(zany_argument_type arg)
 	}
 }
 
-zany_dis_info get_opcode_info(uint8_t opcode)
+static zany_dis_info get_opcode_info(uint8_t opcode)
 {
-	for (int i = 0; i < sizeof(types) / sizeof(zany_dis_info); ++i) {
+	for (size_t i = 0; i < sizeof(types) / sizeof(zany_dis_info); ++i) {
 		if (types[i].opcode == opcode) {
 			return types[i];
 		}
@@ -257,7 +257,7 @@ zany_dis_info get_opcode_info(uint8_t opcode)
 	return x;
 }
 
-const char* get_argument_str(zany_argument_type arg, uint16_t pc, const uint8_t* memory)
+static const char* get_argument_str(zany_argument_type arg, uint16_t pc, const uint8_t* memory)
 {
 	static char buf[32];
 	uint16_t r2;

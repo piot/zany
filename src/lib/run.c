@@ -152,7 +152,7 @@ static void sleep_a_while()
 
 #include <zany/disassembler/disassembler.h>
 
-#if ZANY_DEBUG_OPCODE
+#if defined ZANY_DEBUG_OPCODE
 static const char* flag_string(uint8_t flags)
 {
 	static char flag_chars[5];
@@ -184,7 +184,7 @@ int zany_run(zany_cpu* cpu)
 	uint16_t r1, r2;
 
 	for (;;) {
-#if ZANY_DEBUG_OPCODE
+#if defined ZANY_DEBUG_OPCODE
 		uint8_t x;
 		const char* ds = zany_disassembler_string(cpu->memory, cpu->pc, &x);
 		TYRAN_LOG_INFO("%04X %-20s a:%02x x:%02x y:%02x %s", cpu->pc, ds, cpu->a, cpu->x, cpu->y, flag_string(cpu->sr));
@@ -208,11 +208,9 @@ int zany_run(zany_cpu* cpu)
 			default:
 				TYRAN_LOG_WARN("Unknown opcode:%02X", opcode);
 				return -1;
-				break;
 		}
 #if defined ZANY_DEBUG_OPCODE
 		sleep_a_while();
 #endif
 	}
-	return 0;
 }
